@@ -1,0 +1,60 @@
+<h2>Artist Management</h2>
+
+<h3>Get an Artist</h3>
+<b>Note: The only search critera is by nconst.</b>
+<form (ngSubmit)="getArtist()" style="display: flex; flex-direction: column; max-width: 400px; margin: auto;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="nconst" style="width: 30%;">nconst:</label>
+        <input type="text" [(ngModel)]="currentArtist.nconst" name="nconst" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="title" style="width: 30%;">Title:</label>
+        <input type="text" [readonly]=true [(ngModel)]="currentArtist.title" name="title" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="first_name" style="width: 30%;">First name:</label>
+        <input type="text" [readonly]=false [(ngModel)]="currentArtist.first_name" name="first_name" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="middle_name" style="width: 30%;">Middle name:</label>
+        <input type="text" [readonly]=true [(ngModel)]="currentArtist.middle_name" name="middle_name" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="last_name" style="width: 30%;">Last name:</label>
+        <input type="text" [readonly]=false [(ngModel)]="currentArtist.last_name" name="last_name" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="suffix" style="width: 30%;">Suffix:</label>
+        <input type="text" [readonly]=true [(ngModel)]="currentArtist.suffix" name="suffix" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="birth_year" style="width: 30%;">Birth year:</label>
+        <input type="text" [readonly]=true [(ngModel)]="currentArtist.birth_year" name="birth_year" required style="width: 65%;">
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <label for="death_year" style="width: 30%;">Death year:</label>
+        <input type="text" [readonly]=true [(ngModel)]="currentArtist.death_year" name="death_year" required style="width: 65%;">
+    </div>
+
+    <button type="submit" style="align-self: center; padding: 8px 16px; margin-top: 12px;">Get Artist</button>
+</form>
+<ul>
+  <li *ngFor="let person of people">
+    <span *ngIf="person.title"><strong>{{ person.title }}</strong> </span>
+    <span *ngIf="person.firstName">{{ person.firstName }} </span>
+    <span *ngIf="person.middleName">{{ person.middleName }} </span>
+    <span *ngIf="person.lastName">{{ person.lastName }}</span>
+    <span *ngIf="person.suffix">, {{ person.suffix }}</span>
+    <span *ngIf="person.nickname"> ({{ person.nickname }})</span>
+    <span *ngIf="person.nconst">
+      - <a [href]="'https://www.imdb.com/name/' + person.nconst" target="_blank">IMDB Profile</a>
+    </span>
+  </li>
+</ul>
