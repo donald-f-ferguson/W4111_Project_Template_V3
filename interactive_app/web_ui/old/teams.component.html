@@ -1,0 +1,30 @@
+<h2>Team Management</h2>
+
+<h3>Create Team</h3>
+<form (ngSubmit)="createTeam()">
+  <label for="name">Name:</label>
+  <input type="text" [(ngModel)]="newTeam.name" name="name" required>
+  <label for="description">Description:</label>
+  <input type="text" [(ngModel)]="newTeam.description" name="description" required>
+  <button type="submit">Create Team</button>
+</form>
+
+<h3>Existing Teams</h3>
+<ul>
+  <li *ngFor="let team of teams">
+    {{ team.name }} ({{ team.description }})
+    <button (click)="editTeam(team)">Edit</button>
+    <button (click)="deleteTeam(team.id)">Delete</button>
+  </li>
+</ul>
+
+<div *ngIf="selectedTeam">
+  <h3>Edit Team</h3>
+  <form (ngSubmit)="updateTeam()">
+    <label for="name">Name:</label>
+    <input type="text" [(ngModel)]="selectedTeam.name" name="name" required>
+    <label for="description">Description:</label>
+    <input type="text" [(ngModel)]="selectedTeam.description" name="description" required>
+    <button type="submit">Update Team</button>
+  </form>
+</div>
