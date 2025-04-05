@@ -7,11 +7,16 @@
 #
 from interactive_app.application.resources.imdb_resources.artist_resource import Artist, ArtistRsp, ArtistResource
 from interactive_app.application.services.mysql_data_service import MySQLDataService, MySQLDataServiceConfig
+from interactive_app.application.services.mongodb_data_service import MongoDBDataService
+
 # from interactive_app.application.resources.got_resources.character_resource import CharacterResource
 # from interactive_app.application.resources.got_resources.episodes_resource import EpisodesResource
 
 # from interactive_app.application.services.mongodb_data_service import MongoDBDataService
 # from interactive_app.application.resources.episodes.episodes_resource import EpisodeResource
+
+from interactive_app.application.resources.classic_models_resource.customers_resource import \
+    CustomersResource
 
 from interactive_app.application.resources.db_book.student_resource import StudentResource
 
@@ -60,8 +65,10 @@ class ServiceFactory:
         mongo_config = dict()
 
         # mongo_config['mongodb_url'] = app_secrets.mongodb_url
-        """
+        mongo_config['mongodb_url'] = "localhost:27017"
         self.mongo_data_service = MongoDBDataService(mongo_config)
+
+        """
         episodes_context["data_service"] = self.mongo_data_service
         episodes_context["database"] = "F24_GoT"
         episodes_context["collection"] = "episodes"
@@ -88,14 +95,13 @@ class ServiceFactory:
         episodes_context["collection"] = "episodes"
 
         self.episodes_resource = EpisodesResource(episodes_context)
-
+        """
         classic_models_context = dict()
         classic_models_context["data_service"] = self.mongo_data_service
         classic_models_context["database"] = "Classic_Models"
         classic_models_context["collection"] = "Customers"
 
         self.customers_resource = CustomersResource(classic_models_context)
-        """
 
     def get_resource(self, resource_name):
         """
@@ -114,8 +120,7 @@ class ServiceFactory:
             # result = self.episodes_resource
             result = None
         elif resource_name == "CustomersResource":
-            # result = self.customers_resource
-            result = None
+            result = self.customers_resource
         elif resource_name == "StudentResource":
             result = self.student_resource
         else:

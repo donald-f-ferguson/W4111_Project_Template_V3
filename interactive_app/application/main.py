@@ -54,7 +54,7 @@ from resources.imdb_resources.artist_resource import Artist, ArtistRsp, ArtistsR
 
 # from resources.got_resource.episodes_resource import EpisodesResource
 
-# from resources.classic_models_resource.customers_resource import CustomersResource, Customer
+from resources.classic_models_resource.customers_resource import CustomersResource, Customer
 
 from resources.db_book.student_resource import Student, StudentRsp
 
@@ -70,7 +70,7 @@ artist_resource = resource_factory.get_resource("ArtistResource")
 student_resource = resource_factory.get_resource("StudentResource")
 # character_resource = resource_factory.get_resource("CharacterResource")
 # episodes_resource = resource_factory.get_resource("EpisodesResource")
-# customer_resource = resource_factory.get_resource("CustomersResource")
+customer_resource = resource_factory.get_resource("CustomersResource")
 
 
 # Create the application/api server class.
@@ -188,10 +188,26 @@ async def get_student(ID: str) -> StudentRsp:
     result = student_resource.get_by_key(ID)
     return result
 
+@app.get("/api/customers/{customer_number}", response_model=Customer)
+async def get_customer(customer_number: str) -> Customer:
+    """
+
+    :param customer_number:
+        https://www.imdb.com/interfaces/
+    :return:A data transfer object/OpenAPI model containing the response.
+        TODO Should return 404 if not found.
+    """
+
+    number = int(customer_number)
+    result = customer_resource.retrieve({"number": number}, None)
+    if result:
+        result = result[0]
+    return result
+
 
 # Added the code below to enable running in PyCharm debugger.
 # Modified the port from 8000 to 8001 because I often have multiple
 # microservices running and need to spread over ports.
 #
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="localhost", port=8001)

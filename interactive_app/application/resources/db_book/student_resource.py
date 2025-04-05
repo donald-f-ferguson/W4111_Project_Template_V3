@@ -70,7 +70,7 @@ class StudentResource(BaseResource):
             tmp["links"] = [
                 {"rel": "self", "href": "/api/students/" + key},
                 {"rel": "department", "href": "/api/departments/" +
-                    student["dept_name"]}
+                    student["department_name"]}
             ]
 
             # Create the response model from the dictionary.
